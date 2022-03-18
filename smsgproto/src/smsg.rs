@@ -2,7 +2,7 @@
 pub struct BatiMsg {
     #[prost(string, tag="1")]
     pub id: ::prost::alloc::string::String,
-    #[prost(enumeration="BatiMsgType", tag="2")]
+    #[prost(enumeration="bati_msg::BatiMsgType", tag="2")]
     pub r#type: i32,
     #[prost(bytes="vec", optional, tag="3")]
     pub data: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
@@ -15,13 +15,23 @@ pub struct BatiMsg {
     #[prost(uint64, tag="7")]
     pub ts: u64,
 }
+/// Nested message and enum types in `BatiMsg`.
+pub mod bati_msg {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[repr(i32)]
+    pub enum BatiMsgType {
+        Unused = 0,
+        Biz = 1,
+        ConnQuit = 2,
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ServiceMsg {
     #[prost(string, tag="1")]
     pub id: ::prost::alloc::string::String,
     #[prost(string, tag="2")]
     pub service: ::prost::alloc::string::String,
-    #[prost(enumeration="ServiceMsgType", tag="3")]
+    #[prost(enumeration="service_msg::ServiceMsgType", tag="3")]
     pub r#type: i32,
     #[prost(message, optional, tag="4")]
     pub biz_data: ::core::option::Option<BizData>,
@@ -31,6 +41,17 @@ pub struct ServiceMsg {
     pub quit_data: ::core::option::Option<QuitData>,
     #[prost(uint64, tag="7")]
     pub ts: u64,
+}
+/// Nested message and enum types in `ServiceMsg`.
+pub mod service_msg {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[repr(i32)]
+    pub enum ServiceMsgType {
+        Unused = 0,
+        ConnJoin = 1,
+        ConnQuit = 2,
+        Biz = 3,
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct JoinData {
@@ -56,7 +77,7 @@ pub struct QuitData {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BizData {
-    #[prost(enumeration="BizMsgType", tag="1")]
+    #[prost(enumeration="biz_data::BizMsgType", tag="1")]
     pub r#type: i32,
     #[prost(string, repeated, tag="2")]
     pub cids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -73,27 +94,15 @@ pub struct BizData {
     #[prost(bytes="vec", optional, tag="8")]
     pub data: ::core::option::Option<::prost::alloc::vec::Vec<u8>>,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum BatiMsgType {
-    Unused = 0,
-    Biz = 1,
-    ConnQuit = 2,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum ServiceMsgType {
-    Unused = 0,
-    ConnJoin = 1,
-    ConnQuit = 2,
-    Biz = 3,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum BizMsgType {
-    Unused = 0,
-    Users = 1,
-    Room = 2,
-    Service = 3,
-    All = 4,
+/// Nested message and enum types in `BizData`.
+pub mod biz_data {
+    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[repr(i32)]
+    pub enum BizMsgType {
+        Unused = 0,
+        Users = 1,
+        Room = 2,
+        Service = 3,
+        All = 4,
+    }
 }

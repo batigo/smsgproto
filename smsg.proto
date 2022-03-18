@@ -28,11 +28,12 @@ message ServiceMsg {
     Biz = 3;
   }
   string id = 1;
-  string servcie = 2;
+  string service = 2;
   ServiceMsgType type = 3;
   optional BizData biz_data = 4;
   optional JoinData join_data = 5;
   optional QuitData quit_data = 6;
+  uint64  ts = 7;
 }
 
 
@@ -63,8 +64,8 @@ message BizData {
   repeated string uids = 3;
   optional string room = 4;
   optional uint32 broadcast_ratio = 5;
-  repeated uint32 black_uids = 6;
-  repeated uint32 white_uids = 7;
+  repeated string black_uids = 6;
+  repeated string white_uids = 7;
   optional bytes data = 8;
 }
 
