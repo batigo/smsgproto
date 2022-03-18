@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package smsg;
+
+option go_package = "github.com/batigo/smsg";
+
+message BatiMsg {
+  enum BatiMsgType {
+    Unused = 0;
+    Biz = 1;
+    ConnQuit = 2;
+  }
+
+  string id = 1;
+  BatiMsgType type = 2;
+  optional bytes data = 3;
+  string cid = 4;
+  string uid = 5;
+  optional string ip = 6;
+  uint64  ts = 7;
+}
+
+message ServiceMsg {
+  enum ServiceMsgType {
+    Unused = 0;
+    ConnJoin = 1;
+    ConnQuit = 2;
+    Biz = 3;
+  }
+  string id = 1;
+  string servcie = 2;
+  ServiceMsgType type = 3;
+  optional BizData biz_data = 4;
+  optional JoinData join_data = 5;
+  optional QuitData quit_data = 6;
+}
+
+
+message JoinData {
+  optional string cid = 1;
+  optional string uid = 2;
+  optional bool join_service = 3;
+  repeated string rooms = 4;
+}
+
+message QuitData {
+  optional string cid = 1;
+  optional string uid = 2;
+  optional bool quit_service = 3;
+  repeated string rooms = 4;
+}
+
+message BizData {
+  enum BizMsgType {
+    Unused = 0;
+    Users = 1;
+    Room = 2;
+    Service = 3;
+    All = 4;
+  }
+  BizMsgType type = 1;
+  repeated string cids = 2;
+  repeated string uids = 3;
+  optional string room = 4;
+  optional uint32 broadcast_ratio = 5;
+  repeated uint32 black_uids = 6;
+  repeated uint32 white_uids = 7;
+  optional bytes data = 8;
+}
+
