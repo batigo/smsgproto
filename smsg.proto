@@ -4,27 +4,39 @@ package smsg;
 
 option go_package = "github.com/batigo/smsg";
 
+// bati -> service msg
 message BatiMsg {
+  // bati消息类型
   enum BatiMsgType {
     Unused = 0;
+    // 业务消息
     Biz = 1;
+    // 长连接退出
     ConnQuit = 2;
   }
 
   string id = 1;
   BatiMsgType type = 2;
   optional bytes data = 3;
+  // conn id
   string cid = 4;
+  // user id
   string uid = 5;
+  // client ip
   optional string ip = 6;
+  // 消息从bati发出的时间戳，单位毫秒
   uint64  ts = 7;
 }
 
+// service -> bati msg
 message ServiceMsg {
   enum ServiceMsgType {
     Unused = 0;
+    // 加入房间消息
     ConnJoin = 1;
+    // 退出房间消息
     ConnQuit = 2;
+    // 业务消息
     Biz = 3;
   }
   string id = 1;
@@ -33,6 +45,7 @@ message ServiceMsg {
   optional BizData biz_data = 4;
   optional JoinData join_data = 5;
   optional QuitData quit_data = 6;
+  // 从service发出消息的时间戳，单位毫秒
   uint64  ts = 7;
 }
 
@@ -51,12 +64,17 @@ message QuitData {
   repeated string rooms = 4;
 }
 
+// 业务消息数据
 message BizData {
   enum BizMsgType {
     Unused = 0;
+    // 指定发送给一批用户/conn
     Users = 1;
+    // 一个房间内广播消息
     Room = 2;
+    // 一个service广播消息
     Service = 3;
+    // bati全局广播
     All = 4;
   }
   BizMsgType type = 1;
